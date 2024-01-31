@@ -13,7 +13,7 @@ HTTP Library: Axios
 
 ## Build Setup
 
-# node version: 20.9.0
+ node version: 20.9.0
 
 ```bash
 # on a folder at your workspace clone the project from github url 
