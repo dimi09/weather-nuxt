@@ -2,7 +2,6 @@
   <section class="chartContainer">
     <h3>Weekly Variation </h3>
       <LineChart :data="chartData" :options="chartOptions"/>
-      <!-- <p>{{arr}}</p> -->
   </section>
 </template>
 
@@ -17,7 +16,7 @@ export default {
             {
               scaleLabel: {
                 display: true,
-                labelString: 'Temperature', // Label for the y-axis
+                labelString: 'Temperature',
               },
               ticks: {
                 beginAtZero: true,
@@ -27,11 +26,11 @@ export default {
           ],
         },
            },
-           arr:[],
+           graphData:[],
         };
     },
     mounted() {
-      this.arr = this.$store?.state?.dailyWeather.map(d => ({
+      this.graphData = this.$store?.state?.dailyWeather.slice(0, 7).map(d => ({
         date: this.convertTime(d.dt),
         maxTemp: Math.round(d?.temp?.max),
         value: d?.temp?.max
@@ -43,12 +42,12 @@ export default {
     },
     chartData() {
       return {
-        labels: this.arr.map(label => label.date),
+        labels: this.graphData.map(label => label.date),
         datasets: [
           {
             label: 'Max Temperature',
             scaleBeginAtZero : true,
-            data: this.arr.map(d => d.value),
+            data: this.graphData.map(d => d.maxTemp),
             borderColor: "#4bcc96", 
             fill: false,
           }

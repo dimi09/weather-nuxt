@@ -86,12 +86,21 @@ export default {
   background-color:#fdfdfd;
   .btn-area {
     padding: 20px 20px;
+    .el-button {
+       background-color:rgb(242, 242, 242);
+      color: 343434;
+    }
+
   .selectDayBtn {
     max-width: 130px;
     width: 100%;
     .el-input__inner {
       padding: 0;
       text-align: center;
+      background-color:rgb(242, 242, 242);
+      &::placeholder {
+            color: #343434;
+        }
     }
   }
 }
