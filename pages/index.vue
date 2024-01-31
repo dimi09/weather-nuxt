@@ -13,30 +13,15 @@ export default {
       test: null,
     };
   },
-
   async asyncData({ $axios, store }) {
     try {
       await store.dispatch("fetchWeatherData", { $axios });
-      const now = new Date();
-      const midnight = new Date(now);
-      midnight.setHours(24, 0, 0, 0);
-      const timeUntilMidnight = midnight - now;
-
-      const intervalId = setInterval(async () => {
-        try {
-          await store.dispatch("fetchWeatherData", { $axios });
-        } catch (error) {
-          console.error("Error in setInterval callback:", error);
-        }
-      }, timeUntilMidnight);
-
-      this.$data.intervalId = intervalId;
+      setInterval(async () => {
+        await store.dispatch("fetchWeatherData", { $axios });
+      }, 60 * 60 * 1000);
     } catch (error) {
       console.error("Error in asyncData:", error);
     }
-  },
-  beforeDestroy() {
-    clearInterval(this.$data.intervalId);
   },
 };
 </script>

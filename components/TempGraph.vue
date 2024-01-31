@@ -43,7 +43,6 @@ export default {
     },
     chartData() {
       return {
-        // labels: ['30/1', '1/2', '2/2', '3/2', '4/2', '5/2'],
         labels: this.arr.map(label => label.date),
         datasets: [
           {

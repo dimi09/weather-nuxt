@@ -1,11 +1,6 @@
 <template>
   <section class="info-container mt10">
-    <InfoItem :data="feelsLike"/>
-    <InfoItem :data="wind"/>
-    <InfoItem :data="windGust"/>
-    <InfoItem :data="windDeg"/>
-    <InfoItem :data="humidity"/>
-    <InfoItem :data="pressure"/>
+    <InfoItem v-for="(item, index) in itemsInfo" :key="index" :data="item" />
   </section>
 </template>
 
@@ -63,9 +58,16 @@ export default {
         desc: 'Pressure',
       }
     },
-  },
-  methods: {
-    // const feels_like = {'value', 'unit', 'description'};
+    itemsInfo() {
+      return [
+        this.feelsLike,
+        this.wind,
+        this.windGust,
+        this.windDeg,
+        this.humidity,
+        this.pressure,
+      ]
+    }
   },
 }
 </script>
