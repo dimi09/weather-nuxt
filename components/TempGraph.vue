@@ -45,7 +45,7 @@ export default {
         labels: this.graphData.map(label => label.date),
         datasets: [
           {
-            label: 'Max Temperature',
+            label: 'Max Temperature per day',
             scaleBeginAtZero : true,
             data: this.graphData.map(d => d.maxTemp),
             borderColor: "#4bcc96", 
@@ -62,8 +62,9 @@ export default {
 </script>
 <style lang="scss" scoped>
   .chartContainer {
-     background-color:#fdfdfd;
+    background-color:#fdfdfd;
     padding: 10px 0;
+    border-top: 10px solid rgb(242, 242, 242);
     h3{
       margin-bottom: 10px;
       padding: 0 20px;
