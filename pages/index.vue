@@ -1,33 +1,42 @@
 <template>
- <div class="indexContainer">
-  <Top/>
-  <!-- <TempDailyChart /> -->
- </div>
+  <div class="indexContainer">
+    <Top />
+    <TempGraph />
+  </div>
 </template>
 
 <script>
-// import TempDailyChart from '~/components/TempDailyChart.vue';
-
 export default {
-    name: 'IndexPage',
-    data() {
-        return {
-            test: null,
-        };
-    },
-    async asyncData({ $axios, store }) {
+  name: "IndexPage",
+  data() {
+    return {
+      test: null,
+    };
+  },
+
+  async asyncData({ $axios, store }) {
+    try {
+      await store.dispatch("fetchWeatherData", { $axios });
+      const now = new Date();
+      const midnight = new Date(now);
+      midnight.setHours(24, 0, 0, 0);
+      const timeUntilMidnight = midnight - now;
+
+      const intervalId = setInterval(async () => {
         try {
-            // Dispatch the fetchWeatherData action
-            await store.dispatch('fetchWeatherData', { $axios });
-            setInterval(async () => {
-                await store.dispatch('fetchWeatherData', { $axios });
-            }, 5 * 60 * 1000);
-            // Other asyncData logic...
+          await store.dispatch("fetchWeatherData", { $axios });
+        } catch (error) {
+          console.error("Error in setInterval callback:", error);
         }
-        catch (error) {
-            console.error('Error in asyncData:', error);
-        }
-    },
-    // components: { TempDailyChart }
-}
+      }, timeUntilMidnight);
+
+      this.$data.intervalId = intervalId;
+    } catch (error) {
+      console.error("Error in asyncData:", error);
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.$data.intervalId);
+  },
+};
 </script>

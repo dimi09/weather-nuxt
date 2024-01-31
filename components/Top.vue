@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { convertTime } from '~/utils/indexUtils';
 export default {
   data() {
     return {
@@ -59,14 +60,7 @@ export default {
     },
   },
   methods: {
-    convertTime(timestamp) {
-    const date = new Date(timestamp * 1000); 
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const formattedDate = `${day}/${month}`;
-    
-    return formattedDate;
-  },
+    convertTime,
     showCurrent() {
       this.nowActive = true;
       this.todayActive = false;
@@ -99,13 +93,10 @@ export default {
       padding: 0;
       text-align: center;
     }
-    // .el-input__suffix {
-    //   display: none;
-    // }
   }
 }
 .temperatureSection {
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 0 20px;
 }
 .infoSection {
